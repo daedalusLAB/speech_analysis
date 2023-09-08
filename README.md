@@ -2,7 +2,8 @@
 # Speech Analysis Tool
 
 This tool is designed to extract various speech metrics from a video and save them to a CSV file for further analysis or visualization.
-Features
+
+It return metrics grouped by video frame number.
 
 ## The tool extracts the following metrics from the video:
 
