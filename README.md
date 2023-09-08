@@ -14,7 +14,7 @@ Features
 ## Installation
 
 ```
-pip install git+https://github.com/your_github_username/speech_analysis.git
+pip install git+https://github.com/daedalusLAB/speech_analysis.git
 ```
 
 ## Usage
