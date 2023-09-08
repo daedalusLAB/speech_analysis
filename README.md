@@ -14,7 +14,7 @@ Features
 ## Installation
 
 ```
-pip install git+https://github.com/your_github_username/speech_analysis_tool.git
+pip install git+https://github.com/your_github_username/speech_analysis.git
 ```
 
 ## Usage
@@ -22,12 +22,6 @@ pip install git+https://github.com/your_github_username/speech_analysis_tool.git
 ### Command line
 
 ```
-python speech_analysis_tool.py --video /path/to/video.mp4 --csv /path/to/output.csv
+speech_analysis --video /path/to/video.mp4 --csv /path/to/output.csv
 
-```
-
-### Python 
-```
-from measure import speech_analysis
-speech_analysis.file_process('/path/to/video.mp4', '/path/to/output.csv')
 ```
