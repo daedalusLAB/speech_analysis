@@ -8,8 +8,7 @@ setup(
         "praat-parselmouth",
         "moviepy",
         "opencv-python",
-        "pandas",
-        "itertools"
+        "pandas"
     ],
     entry_points={
         'console_scripts': [
