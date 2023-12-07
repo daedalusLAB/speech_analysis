@@ -2,13 +2,14 @@ from setuptools import setup, find_packages
 
 setup(
     name="speech_analysis",
-    version="0.1",
+    version="0.2",
     packages=find_packages(),
     install_requires=[
         "praat-parselmouth",
         "moviepy",
         "opencv-python",
-        "pandas"
+        "pandas",
+        "itertools"
     ],
     entry_points={
         'console_scripts': [

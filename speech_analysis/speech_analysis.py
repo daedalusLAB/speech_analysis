@@ -8,6 +8,7 @@ import cv2
 import pandas as pd
 import os
 from parselmouth.praat import call
+from itertools import zip_longest
 
 
 class SpeechAnalysis:
@@ -216,16 +217,16 @@ class SpeechAnalysis:
         harmonicity_by_frames = self.harmonicities()
         formants_by_frames = self.formants()
         data_frame = pd.DataFrame({
-            'Frame': [frame for frame in pitches_by_frames[0]],
-            'Start': [time for time in pitches_by_frames[1]],
-            'End': [time for time in pitches_by_frames[2]],
-            'Pitches': [pitch for pitch in pitches_by_frames[3]],
-            'Intensities': [intensity for intensity in intensity_by_frames],
-            'Harmonicities': [harmonicity for harmonicity in harmonicity_by_frames],
-            'Formant 1': [f1 for f1 in formants_by_frames[0]],
-            'Formant 2': [f2 for f2 in formants_by_frames[1]], 
-            'Formant 3': [f3 for f3 in formants_by_frames[2]],
-            'Formant 4': [f4 for f4 in formants_by_frames[3]]
+            'Frame': [frame for frame in zip_longest(pitches_by_frames[0], fillvalue='NA')],
+            'Start': [time for time in zip_longest(pitches_by_frames[1], fillvalue='NA')],
+            'End': [time for time in zip_longest(pitches_by_frames[2], fillvalue='NA')],
+            'Pitches': [pitch for pitch in zip_longest(pitches_by_frames[3], fillvalue='NA')],
+            'Intensities': [intensity for intensity in zip_longest(intensity_by_frames, fillvalue='NA')],
+            'Harmonicities': [harmonicity for harmonicity in zip_longest(harmonicity_by_frames, fillvalue='NA')],
+            'Formant 1': [f1 for f1 in zip_longest(formants_by_frames[0], fillvalue='NA')],
+            'Formant 2': [f2 for f2 in zip_longest(formants_by_frames[1], fillvalue='NA')],
+            'Formant 3': [f3 for f3 in zip_longest(formants_by_frames[2], fillvalue='NA')],
+            'Formant 4': [f4 for f4 in zip_longest(formants_by_frames[3], fillvalue='NA')]
         })
         data_frame.to_csv(index=False, path_or_buf=self.csv_path)
 
