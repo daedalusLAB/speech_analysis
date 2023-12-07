@@ -216,17 +216,30 @@ class SpeechAnalysis:
         intensity_by_frames = self.intensities()
         harmonicity_by_frames = self.harmonicities()
         formants_by_frames = self.formants()
+
+        # Find the maximum length among all lists
+        # Sometimes (I don't know why) the lists are not the same length (intensity is shorter than the others by 1)
+        # TODO: Find out why this happens
+        all_lists = [pitches_by_frames[0], pitches_by_frames[1], pitches_by_frames[2], pitches_by_frames[3], intensity_by_frames, harmonicity_by_frames, formants_by_frames[0], formants_by_frames[1], formants_by_frames[2], formants_by_frames[3]]
+        max_length = max(len(lst) for lst in all_lists)
+
+        # Pad shorter lists with empty strings
+        for lst in all_lists:
+            while len(lst) < max_length:
+                lst.append('NA')
+       
+        # Now you can create your DataFrame
         data_frame = pd.DataFrame({
-            'Frame': [frame for frame in zip_longest(pitches_by_frames[0], fillvalue='NA')],
-            'Start': [time for time in zip_longest(pitches_by_frames[1], fillvalue='NA')],
-            'End': [time for time in zip_longest(pitches_by_frames[2], fillvalue='NA')],
-            'Pitches': [pitch for pitch in zip_longest(pitches_by_frames[3], fillvalue='NA')],
-            'Intensities': [intensity for intensity in zip_longest(intensity_by_frames, fillvalue='NA')],
-            'Harmonicities': [harmonicity for harmonicity in zip_longest(harmonicity_by_frames, fillvalue='NA')],
-            'Formant 1': [f1 for f1 in zip_longest(formants_by_frames[0], fillvalue='NA')],
-            'Formant 2': [f2 for f2 in zip_longest(formants_by_frames[1], fillvalue='NA')],
-            'Formant 3': [f3 for f3 in zip_longest(formants_by_frames[2], fillvalue='NA')],
-            'Formant 4': [f4 for f4 in zip_longest(formants_by_frames[3], fillvalue='NA')]
+            'Frame': pitches_by_frames[0],
+            'Start': pitches_by_frames[1],
+            'End': pitches_by_frames[2],
+            'Pitches': pitches_by_frames[3],
+            'Intensities': intensity_by_frames,
+            'Harmonicities': harmonicity_by_frames,
+            'Formant 1': formants_by_frames[0],
+            'Formant 2': formants_by_frames[1],
+            'Formant 3': formants_by_frames[2],
+            'Formant 4': formants_by_frames[3]
         })
         data_frame.to_csv(index=False, path_or_buf=self.csv_path)
 
